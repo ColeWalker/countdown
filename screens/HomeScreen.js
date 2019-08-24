@@ -31,11 +31,10 @@ class HomeScreen extends React.Component {
         contentContainerStyle={{alignItems:'center'}}
         >
         <CountDown /> 
-        <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{flex:1, width:"100%"}}>
+        
+      </ScrollView>
         
           
-        </LinearGradient>
-      </ScrollView>
       <Button
           title="Go to Settings"
           onPress={() => this.props.navigation.navigate('Settings')}
