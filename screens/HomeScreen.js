@@ -20,12 +20,24 @@ import { connect } from 'react-redux';
 import { typography } from '../styles/typography'
 import { LinearGradient } from 'expo-linear-gradient'
 
+const ConditionalWrap = ({condition, wrap, children}) => condition ? wrap(children) : <View>children</View>;
 
 class HomeScreen extends React.Component {
   render(){
     return (
-    <View style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]}>
-      <Text style={[typography.heading, typography.center]}>{this.props.countdownName}</Text>
+
+    <ConditionalWrap
+      condition={true}
+      wrap={children => {
+        return(
+        <LinearGradient 
+        colors={['#4c669f', '#3b5998', '#192f6a']} 
+        style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]} >
+        {children}
+        </LinearGradient>)}}
+    >
+      
+      {!this.props.countDownName&& ( <Text style={[typography.heading, typography.center]}>{this.props.countdownName}</Text>)}
       <ScrollView
         
         contentContainerStyle={{alignItems:'center'}}
@@ -40,7 +52,7 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('Settings')}
           style={appStyle.colorPickerButton}
           />
-    </View>
+    </ConditionalWrap>
   );}
 
 }
