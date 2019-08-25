@@ -23,32 +23,40 @@ class ColorPickerScreen extends Component {
     }
 
     state={
-        color: '#ffffff'
+        colors: ['#ffffff'],
+        index: 0
     }
+    
+    colorChangeHandler(color, index = 0){
+            var newColors = [...this.state.colors];
+            newColors.splice(index, 1, color);
+            this.setState({colors: newColors});
+    }
+
     
     //pass in props for what color it's supposed to change
     //type: "background","backgroundring","progresscolor","textcolor"
-    changeColor(color){
+    changeColor(colors){
         const type = this.props.navigation.getParam('type', 'background');
         switch(type){
             case "background":
-                this.props.changeBackground(color);
+                this.props.changeBackground(colors[0]);
                 break;
 
             case "backgroundringcolor":
-                this.props.changeBackgroundRingColor(color);
+                this.props.changeBackgroundRingColor(colors[0]);
                 break;
             
             case "progresscolor":
-                this.props.changeProgressColor(color);
+                this.props.changeProgressColor(colors[0]);
                 break;
             
             case "textcolor":
-                this.props.changeTextColor(color);
+                this.props.changeTextColor(colors[0]);
                 break;
             
             default:
-                this.props.changeBackground(color);
+                this.props.changeBackground(colors[0]);
         }
     }
 
@@ -58,12 +66,9 @@ class ColorPickerScreen extends Component {
                 <Text>Tap the center circle to select your color.</Text>
                 <ColorPicker
                     onColorChange={newColor=>{
-                        this.setState(previousState=>({
-                            color: fromHsv(newColor)
-                        }));
+                             this.colorChangeHandler(fromHsv(newColor));
                     }}
-                    onColorSelected={newColor=>this.setState(previousState=>
-                        ({color: newColor}))}
+                    onColorSelected={newColor=>this.colorChangeHandler(newColor)}
                     style={{flex:3,
                         paddingBottom: 20,
                     }}
@@ -74,8 +79,8 @@ class ColorPickerScreen extends Component {
                 >
                     <Text>Hex Code:</Text>
                     <TextInput
-                        onChangeText= {(text)=> this.setState({color:text})}
-                        value = {this.state.color}
+                        onChangeText= {(color)=>this.colorChangeHandler(color)}
+                        value = {this.state.colors[this.state.index]}
                         maxLength={7}
                         keyboardType={"default"}
                     />
@@ -83,7 +88,7 @@ class ColorPickerScreen extends Component {
                 <Button
                     title="Save Color"
                     onPress={()=>{
-                        this.changeColor(this.state.color);
+                        this.changeColor(this.state.colors);
                         this.props.navigation.navigate('Settings');
                     }} 
                 />
