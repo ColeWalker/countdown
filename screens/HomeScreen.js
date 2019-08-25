@@ -27,7 +27,7 @@ class HomeScreen extends React.Component {
     return (
 
     <ConditionalWrap
-      condition={true}
+      condition={this.props.background.length>1}
       wrap={children => {
         return(
         <LinearGradient 
@@ -62,6 +62,7 @@ HomeScreen.navigationOptions = {
 };
 const mapStateToProps= state=>({
   countdownName: state.countdownName,
+  background: state.background,
 });
 
 export default connect(mapStateToProps)(HomeScreen);

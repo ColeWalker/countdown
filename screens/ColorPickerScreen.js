@@ -40,7 +40,7 @@ class ColorPickerScreen extends Component {
         const type = this.props.navigation.getParam('type', 'background');
         switch(type){
             case "background":
-                this.props.changeBackground(colors[0]);
+                this.props.changeBackground(colors);
                 break;
 
             case "backgroundringcolor":
