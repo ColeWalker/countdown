@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Text, TextInput, View, Button, KeyboardAvoidingView } from 'react-native'
-import { ColorPicker } from 'react-native-color-picker'
+import { ColorPicker, fromHsv } from 'react-native-color-picker'
 import { changeBackgroundRingColor, changeProgressColor, changeTextColor, changeBackground } from '../actions/index.js'
 import { connect} from 'react-redux'
-//pass in props for what color it's supposed to change
-//type: "background","backgroundring","progresscolor","textcolor"
+
 import { appStyle } from '../styles/index'
 
 
@@ -27,6 +26,8 @@ class ColorPickerScreen extends Component {
         color: '#ffffff'
     }
     
+    //pass in props for what color it's supposed to change
+    //type: "background","backgroundring","progresscolor","textcolor"
     changeColor(color){
         const type = this.props.navigation.getParam('type', 'background');
         switch(type){
@@ -56,6 +57,11 @@ class ColorPickerScreen extends Component {
             <View style={appStyle.mainContainer}>
                 <Text>Tap the center circle to select your color.</Text>
                 <ColorPicker
+                    onColorChange={newColor=>{
+                        this.setState(previousState=>({
+                            color: fromHsv(newColor)
+                        }));
+                    }}
                     onColorSelected={newColor=>this.setState(previousState=>
                         ({color: newColor}))}
                     style={{flex:3,
@@ -71,7 +77,7 @@ class ColorPickerScreen extends Component {
                         onChangeText= {(text)=> this.setState({color:text})}
                         value = {this.state.color}
                         maxLength={7}
-                        keyboardType={"numeric"}
+                        keyboardType={"default"}
                     />
                 </KeyboardAvoidingView>
                 <Button
