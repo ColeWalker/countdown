@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View, Button, KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { Text, TextInput, View, Button, KeyboardAvoidingView, StyleSheet, TouchableOpacity} from 'react-native'
 import { ColorPicker, fromHsv } from 'react-native-color-picker'
 import { changeBackgroundRingColor, changeProgressColor, changeTextColor, changeBackground } from '../actions/index.js'
 import { connect} from 'react-redux'
@@ -43,7 +43,7 @@ class ColorPickerScreen extends Component {
     }
     
     colorChangeHandler(color, index = 0){
-            var newColors = [...this.state.colors];
+            let newColors = [...this.state.colors];
             newColors.splice(index, 1, color);
             this.setState({colors: newColors});
     }
@@ -75,22 +75,19 @@ class ColorPickerScreen extends Component {
         }
     }
 
-
-
-
     addBackgroundColor(){
         this.setState((previousState)=>{
-            return{
+            return({
                 colors: [...previousState.colors, "#ffffff"],
                 maxIndex: previousState.maxIndex+1,
-            }
+            })
         });
     }
 
 
 
     changeIndex(index){
-        (index<= maxIndex) && this.setState({index:index});
+        (index <= this.state.maxIndex) && this.setState({index:index});
     }
 
     render() {
@@ -99,19 +96,19 @@ class ColorPickerScreen extends Component {
                 <Text>Tap the center circle to select your color.</Text>
                 <ColorPicker
                     onColorChange={newColor=>{
-                             this.colorChangeHandler(fromHsv(newColor));
+                             this.colorChangeHandler(fromHsv(newColor), this.state.index);
                     }}
-                    onColorSelected={newColor=>this.colorChangeHandler(newColor)}
+                    onColorSelected={newColor=>this.colorChangeHandler(newColor, this.state.index)}
                     style={{flex:3,
                         paddingBottom: 20,
                     }}
                 />
                 <View style={[{flex:1}, appStyle.row]}>
-                    { this.state.colors && typeof this.state.colors === "object"
-                        && this.state.colors.forEach(function(currentValue, index){
+                    {this.state.colors.map((currentValue, index)=>{
                             return (
-                                <TouchableOpacity onPress={()=>{changeIndex(index)}}>
-                                    <View style={[styles.colorArea, {backgroundColor: currentValue}]} > </View>
+                                <TouchableOpacity onPress={()=>{this.changeIndex(index)}} key={index}>
+                                    <View style={[styles.colorArea, {backgroundColor: this.state.colors[index]}]} />
+                                    <Text>{currentValue + index}</Text>
                                 </TouchableOpacity>
                                 );
                             })
@@ -120,9 +117,14 @@ class ColorPickerScreen extends Component {
 
                     </View> 
                     {this.props.navigation.getParam('type', 'background')==="background" 
-                        && ( <View>
-                                <Ionicons name="md-add-circle"  size={50}/>
-                            </View>
+                        && ( 
+                            <TouchableOpacity onPress={()=>{
+                                this.addBackgroundColor();
+                            }}>
+                            	<View style={{flex:1}}>
+                            	        <Ionicons name="md-add-circle"  size={50}/>
+                            	</View>
+                            </TouchableOpacity>
                         )
                     }
                     
