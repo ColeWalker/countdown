@@ -1,10 +1,24 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View, Button, KeyboardAvoidingView } from 'react-native'
+import { Text, TextInput, View, Button, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { ColorPicker, fromHsv } from 'react-native-color-picker'
 import { changeBackgroundRingColor, changeProgressColor, changeTextColor, changeBackground } from '../actions/index.js'
 import { connect} from 'react-redux'
-
+import { Ionicons } from '@expo/vector-icons';
 import { appStyle } from '../styles/index'
+
+const styles= StyleSheet.create({
+    colorArea:{
+      width:50,
+      height: 50,
+      borderRadius: 50,
+    },
+    plusButton:{
+        width:50,
+        height:50,
+        borderRadius:50,
+    }
+  });
+
 
 
 class ColorPickerScreen extends Component {
@@ -24,7 +38,8 @@ class ColorPickerScreen extends Component {
 
     state={
         colors: ['#ffffff'],
-        index: 0
+        index: 0,
+        maxIndex: 1,
     }
     
     colorChangeHandler(color, index = 0){
@@ -60,6 +75,24 @@ class ColorPickerScreen extends Component {
         }
     }
 
+
+
+
+    addBackgroundColor(){
+        this.setState((previousState)=>{
+            return{
+                colors: [...previousState.colors, "#ffffff"],
+                maxIndex: previousState.maxIndex+1,
+            }
+        });
+    }
+
+
+
+    changeIndex(index){
+        (index<= maxIndex) && this.setState({index:index});
+    }
+
     render() {
         return (
             <View style={appStyle.mainContainer}>
@@ -73,6 +106,27 @@ class ColorPickerScreen extends Component {
                         paddingBottom: 20,
                     }}
                 />
+                <View style={[{flex:1}, appStyle.row]}>
+                    { this.state.colors && typeof this.state.colors === "object"
+                        && this.state.colors.forEach(function(currentValue, index){
+                            return (
+                                <TouchableOpacity onPress={()=>{changeIndex(index)}}>
+                                    <View style={[styles.colorArea, {backgroundColor: currentValue}]} > </View>
+                                </TouchableOpacity>
+                                );
+                            })
+                    } 
+                    <View style={[styles.colorArea, {backgroundColor: this.state.colors[0]}]}>
+
+                    </View> 
+                    {this.props.navigation.getParam('type', 'background')==="background" 
+                        && ( <View>
+                                <Ionicons name="md-add-circle"  size={50}/>
+                            </View>
+                        )
+                    }
+                    
+                </View>
                 <KeyboardAvoidingView
                     style={{flex:1, paddingBottom: 20,}}
                     behavior={"position"}

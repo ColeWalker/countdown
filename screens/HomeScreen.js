@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import { typography } from '../styles/typography'
 import { LinearGradient } from 'expo-linear-gradient'
 
-const ConditionalWrap = ({condition, wrap, children}) => condition ? wrap(children) : <View>children</View>;
+const ConditionalWrap = ({condition, wrap, children}) => condition ? wrap(children) : <View style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]}>{children}</View>;
 
 class HomeScreen extends React.Component {
   render(){
@@ -31,7 +31,7 @@ class HomeScreen extends React.Component {
       wrap={children => {
         return(
         <LinearGradient 
-        colors={['#4c669f', '#3b5998', '#192f6a']} 
+        colors={this.props.background} 
         style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]} >
         {children}
         </LinearGradient>)}}

@@ -9,7 +9,7 @@ const initialState =  {
     deadline: new Date('jan 3, 2099 15:37:55').getTime(),
     progressColor: '#FC9F5B',
     backColor: '#010400',
-    background: '#ffffff',
+    background: ['#ffffff'],
     countdownName: 'Countdown',
     textColor: '#000000',
 };
