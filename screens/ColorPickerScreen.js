@@ -42,12 +42,19 @@ class ColorPickerScreen extends Component {
         maxIndex: 1,
     }
     
+
+    componentDidMount(){
+        if(this.props.navigation.getParam('type', 'background')=="background"){
+            this.setState({colors: this.props.background});
+        }
+    }
     colorChangeHandler(color, index = 0){
             let newColors = [...this.state.colors];
             newColors.splice(index, 1, color);
             this.setState({colors: newColors});
     }
 
+    
     
     //pass in props for what color it's supposed to change
     //type: "background","backgroundring","progresscolor","textcolor"
@@ -75,6 +82,7 @@ class ColorPickerScreen extends Component {
         }
     }
 
+    //function called to add color to gradient
     addBackgroundColor(){
         this.setState((previousState)=>{
             return({
@@ -84,7 +92,16 @@ class ColorPickerScreen extends Component {
         });
     }
 
+    //function called to remove color from gradient
+    removeBackgroundColor(index){
+        let newColors = [...this.state.colors];
+        newColors.splice(index, 1);
+        this.setState({
+            colors:[...newColors],
+        });
+    }
 
+    
 
     changeIndex(index){
         (index <= this.state.maxIndex) && this.setState({index:index});
@@ -106,18 +123,16 @@ class ColorPickerScreen extends Component {
                 <View style={[{flex:1}, appStyle.row]}>
                     {this.state.colors.map((currentValue, index)=>{
                             return (
-                                <TouchableOpacity onPress={()=>{this.changeIndex(index)}} key={index}>
+                                <TouchableOpacity onPress={()=>{this.changeIndex(index)}} key={currentValue}>
                                     <View style={[styles.colorArea, {backgroundColor: this.state.colors[index]}]} />
                                     <Text>{currentValue + index}</Text>
                                 </TouchableOpacity>
                                 );
                             })
                     } 
-                    <View style={[styles.colorArea, {backgroundColor: this.state.colors[0]}]}>
-
-                    </View> 
                     {this.props.navigation.getParam('type', 'background')==="background" 
-                        && ( 
+                        && (
+                        <View style={[appStyle.row, {flex:1}]}>
                             <TouchableOpacity onPress={()=>{
                                 this.addBackgroundColor();
                             }}>
@@ -125,6 +140,14 @@ class ColorPickerScreen extends Component {
                             	        <Ionicons name="md-add-circle"  size={50}/>
                             	</View>
                             </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>{
+                                this.removeBackgroundColor(this.state.index);
+                            }}>
+                            	<View style={{flex:1}} >
+                            	        <Ionicons name="md-remove-circle"  size={50}/>
+                            	</View>
+                            </TouchableOpacity>
+                        </View>
                         )
                     }
                     
