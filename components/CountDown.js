@@ -118,21 +118,25 @@ class CountDown extends Component {
                     <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={0} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.days/365)*100} >
                         {fill=><Text style={styles.innerText}>{this.state.days}</Text>}
                     </AnimatedCircularProgress>
+                    <Text>Days</Text>
                 </View>
                 <View >
                     <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={0} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.hours/24)*100}>
                     {fill=><Text style={styles.innerText}>{this.state.hours}</Text>}
                     </AnimatedCircularProgress>
+                    <Text>Hours</Text>
                 </View>
                 <View >
                     <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={0} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.minutes/60)*100}>
                         {fill=><Text style={styles.innerText}>{this.state.minutes}</Text>}
                     </AnimatedCircularProgress>
+                    <Text>Minutes</Text>
                 </View>
                 <View >
                     <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={360} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.seconds/60)*100}>
                         {fill=><Text style={styles.innerText}>{this.state.seconds}</Text>}
                     </AnimatedCircularProgress>
+                    <Text>Seconds</Text>
                 </View>
             </View>
         )

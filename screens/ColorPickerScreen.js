@@ -48,6 +48,7 @@ class ColorPickerScreen extends Component {
             this.setState({colors: this.props.background});
         }
     }
+    
     colorChangeHandler(color, index = 0){
             let newColors = [...this.state.colors];
             newColors.splice(index, 1, color);

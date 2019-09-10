@@ -85,7 +85,7 @@ class SettingsScreen extends Component{
            </Text>
            <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'background'})}>
              <View style={[styles.colorArea,{
-               backgroundColor: this.props.background,
+               backgroundColor: this.props.background[0],
              }]}>
              </View>
            </TouchableOpacity>
