@@ -105,7 +105,7 @@ class ColorPickerScreen extends Component {
     
 
     changeIndex(index){
-        (index <= this.state.maxIndex) && this.setState({index:index});
+        (index <= this.state.colors.length) && this.setState({index:index});
     }
 
     render() {
@@ -124,7 +124,7 @@ class ColorPickerScreen extends Component {
                 <View style={[{flex:1}, appStyle.row]}>
                     {this.state.colors.map((currentValue, index)=>{
                             return (
-                                <TouchableOpacity onPress={()=>{this.changeIndex(index)}} key={currentValue}>
+                                <TouchableOpacity onPress={()=>{this.changeIndex(index)}} key={index}>
                                     <View style={[styles.colorArea, {backgroundColor: this.state.colors[index]}]} />
                                     <Text>{currentValue + index}</Text>
                                 </TouchableOpacity>
