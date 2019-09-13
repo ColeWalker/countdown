@@ -21,7 +21,9 @@ const styles= StyleSheet.create({
   colorArea:{
     width:50,
     height: 50,
-    borderRadius: 50,
+	borderRadius: 50,
+	borderWidth: 1,
+	borderColor: "#EBE6E6"
   },
 
 });
@@ -68,10 +70,10 @@ class SettingsScreen extends Component{
             colors={["#ff416c", "#ff4b2b"]}
             style={[{height:200, justifyContent:"center", alignItems:"center",}, spacing.center, spacing.column]}
           >
-                    <AnimatedCircularProgress size={125} width={5} rotation={0} tintColor={"#FC9F5B"} backgroundColor = {"#010400"} backgroundWidth={1} fill={75} >
-                        {fill=><Text style={styles.innerText}>Placeholder</Text>}
+                    <AnimatedCircularProgress size={125} width={5} rotation={0} tintColor={this.props.progressColor} backgroundColor = {this.props.backColor} backgroundWidth={1} fill={75} >
+                        {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>Placeholder</Text>}
                     </AnimatedCircularProgress>
-                    <Text>Placeholder</Text>
+                    <Text style={[{color: this.props.textColor}]}>Placeholder</Text>
           </LinearGradient>
           <ScrollView style={{flex:1,}}>
           	<View style={[textRow]}> 
