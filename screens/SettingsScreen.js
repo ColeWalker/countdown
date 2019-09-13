@@ -8,6 +8,8 @@ import { appStyle } from '../styles/index'
 import { spacing } from '../styles/spacing.js'
 import { typography } from '../styles/typography.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { AnimatedCircularProgress } from 'react-native-circular-progress'
+import { LinearGradient } from 'expo-linear-gradient'
 var moment = require('moment');
 
 
@@ -62,102 +64,113 @@ class SettingsScreen extends Component{
     
     return(
        <KeyboardAwareScrollView style={[spacing.mainContainer]} contentContainerStyle={{flex:1}} enableOnAndroid={true}>
-          <View style={[textRow]}> 
-            <Text style={[typography.settingsLabel]}>
-             Date: 
-           </Text>
-            <DatePicker
-            style={{width: 200}}
-            mode="datetime"
-            date={moment(this.props.deadline).format("MMM DD, YYYY hh:mm:ss")}
-            placeholder="select date"
-            format="MMM DD, YYYY hh:mm:ss"
-            minDate={new Date()}
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            showIcon={false}
-            onDateChange={(date) => {this.props.changeDeadline(new Date(date).getTime())}}
-            />
-          </View>
-         <View style={[textRow]}>
-           <Text style={[typography.settingsLabel]}>
-            Background:
-           </Text>
-           <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'background'})}>
-             <View style={[styles.colorArea,{
-               backgroundColor: this.props.background[0],
-             }]}>
-             </View>
-           </TouchableOpacity>
-         </View>
-         <View style={[textRow]}>
-           <Text style={[typography.settingsLabel]}>
-             Text Color:
-           </Text>
-           <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'textcolor'})}>
-             <View style={[styles.colorArea, {
-               backgroundColor: this.props.textColor,
-             }]}>
-             </View>
-           </TouchableOpacity>
-         </View>
-         <View style={[textRow]}>
-           <Text style={[typography.settingsLabel]}>
-             Ring Color:
-           </Text>
-           <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'backgroundringcolor'})}>
-             <View style={[styles.colorArea, {
-               backgroundColor: this.props.backColor,
-
-             }]}>
-             </View>
-           </TouchableOpacity>
-         </View>
-         <View style={[textRow]}>
-           <Text style={[typography.settingsLabel]}>
-             Progress Color:
-           </Text>
-           <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'progresscolor'})}>
-             <View style={[styles.colorArea, {
-               backgroundColor: this.props.progressColor,
-
-             }]}>
-             </View>
-           </TouchableOpacity>
-         </View>
-         <View
-         style={[{flex:1, paddingBottom: 20, backgroundColor:'#fff'}, textRow]}>
-           
-             <Text style={[typography.settingsLabel]}>
-               Countdown Name:
-             </Text>
-             <TextInput 
-              value = {this.state.name}
-              onChangeText= {(text)=> this.setState({name:text})}
-             />
-           
-         </View>
-         <View style={{flex:1}}>
-           <TouchableOpacity 
-            onPress={()=>{this.resetToDefaultsWarning()}}
-           >
-             <Text >
-               Reset to Defaults
-             </Text>
-           </TouchableOpacity>
-         </View>
-         <View style={[{flex:2, display: "flex", flexDirection: "column", justifyContent:"space-around"}, ]}>
-         <Button
-          style={{flex:1}}
-            title="Save"
-            onPress={()=> {this.saveItems(this.state.name)}}
-          />
-          <Button
-          style={{flex:1}}
-            title="Go Back"
-            onPress={()=> this.props.navigation.navigate('Home')}
-          />
-        </View>
+          <LinearGradient
+            colors={["#ff416c", "#ff4b2b"]}
+            style={[{height:200, justifyContent:"center", alignItems:"center",}, spacing.center, spacing.column]}
+          >
+                    <AnimatedCircularProgress size={125} width={5} rotation={0} tintColor={"#FC9F5B"} backgroundColor = {"#010400"} backgroundWidth={1} fill={75} >
+                        {fill=><Text style={styles.innerText}>Placeholder</Text>}
+                    </AnimatedCircularProgress>
+                    <Text>Placeholder</Text>
+          </LinearGradient>
+          <ScrollView style={{flex:1,}}>
+          	<View style={[textRow]}> 
+          	  <Text style={[typography.settingsLabel]}>
+          	   Date: 
+          	 </Text>
+          	  <DatePicker
+          	  style={{width: 200, padding:10}}
+          	  mode="datetime"
+          	  date={moment(this.props.deadline).format("MMM DD, YYYY hh:mm:ss")}
+          	  placeholder="select date"
+          	  format="MMM DD, YYYY hh:mm:ss"
+          	  minDate={new Date()}
+          	  confirmBtnText="Confirm"
+          	  cancelBtnText="Cancel"
+          	  showIcon={false}
+          	  onDateChange={(date) => {this.props.changeDeadline(new Date(date).getTime())}}
+          	  />
+          	</View>
+                   <View style={[textRow]}>
+          	 <Text style={[typography.settingsLabel]}>
+          	  Background:
+          	 </Text>
+          	 <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'background'})}>
+          	   <View style={[styles.colorArea,{
+          	     backgroundColor: this.props.background[0],
+          	   }]}>
+          	   </View>
+          	 </TouchableOpacity>
+                   </View>
+                   <View style={[textRow]}>
+          	 <Text style={[typography.settingsLabel]}>
+          	   Text Color:
+          	 </Text>
+          	 <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'textcolor'})}>
+          	   <View style={[styles.colorArea, {
+          	     backgroundColor: this.props.textColor,
+          	   }]}>
+          	   </View>
+          	 </TouchableOpacity>
+                   </View>
+                   <View style={[textRow]}>
+          	 <Text style={[typography.settingsLabel]}>
+          	   Ring Color:
+          	 </Text>
+          	 <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'backgroundringcolor'})}>
+          	   <View style={[styles.colorArea, {
+          	     backgroundColor: this.props.backColor,
+          
+          	   }]}>
+          	   </View>
+          	 </TouchableOpacity>
+                   </View>
+                   <View style={[textRow]}>
+          	 <Text style={[typography.settingsLabel]}>
+          	   Progress Color:
+          	 </Text>
+          	 <TouchableOpacity onPress={()=>this.props.navigation.navigate('ColorPicker', {type: 'progresscolor'})}>
+          	   <View style={[styles.colorArea, {
+          	     backgroundColor: this.props.progressColor,
+          
+          	   }]}>
+          	   </View>
+          	 </TouchableOpacity>
+                   </View>
+                   <View
+                   style={[{flex:1, paddingBottom: 20, backgroundColor:'#fff'}, textRow]}>
+          	 
+          	   <Text style={[typography.settingsLabel]}>
+          	     Countdown Name:
+          	   </Text>
+          	   <TextInput 
+          	    value = {this.state.name}
+          	    onChangeText= {(text)=> this.setState({name:text})}
+          	   />
+          	 
+                   </View>
+                   <View style={{flex:1}}>
+          	 <TouchableOpacity 
+          	  onPress={()=>{this.resetToDefaultsWarning()}}
+          	 >
+          	   <Text >
+          	     Reset to Defaults
+          	   </Text>
+          	 </TouchableOpacity>
+                   </View>
+                   <View style={[{flex:2, display: "flex", flexDirection: "column", justifyContent:"space-around"}, ]}>
+                   <Button
+          	style={{flex:1}}
+          	  title="Save"
+          	  onPress={()=> {this.saveItems(this.state.name)}}
+          	/>
+          	<Button
+          	style={{flex:1}}
+          	  title="Go Back"
+          	  onPress={()=> this.props.navigation.navigate('Home')}
+          	/>
+                  </View>
+          </ScrollView>
       </KeyboardAwareScrollView>
 
     )
