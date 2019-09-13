@@ -37,7 +37,7 @@ class HomeScreen extends React.Component {
         </LinearGradient>)}}
     >
       
-      {!this.props.countDownName&& ( <Text style={[typography.heading, typography.center]}>{this.props.countdownName}</Text>)}
+      {!this.props.countDownName&& ( <Text style={[typography.heading, typography.center, {color: this.props.textColor}]}>{this.props.countdownName}</Text>)}
       <ScrollView
         
         contentContainerStyle={{alignItems:'center'}}
@@ -63,6 +63,7 @@ HomeScreen.navigationOptions = {
 const mapStateToProps= state=>({
   countdownName: state.countdownName,
   background: state.background,
+  textColor: state.textColor,
 });
 
 export default connect(mapStateToProps)(HomeScreen);
