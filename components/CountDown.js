@@ -6,11 +6,12 @@ import { connect} from 'react-redux'
 import { changeDeadline } from '../actions/index.js'
 import { typography } from '../styles/typography.js';
 import { spacing } from '../styles/spacing'
+
 var backWidth=1;
 var progressWidth=5;
 var progressColor='#FC9F5B';
 var backColor='#010400';
-var diameter = 125;
+var diameter = 95;
 /*----------------------------------
         COUNTDOWN MATH
 ------------------------------------*/
@@ -33,9 +34,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
    },
    innerText:{
-       fontSize:75,
+       fontSize:55,
        textAlign:'center'
-   }
+   },
+   outerText:{
+       fontSize:30,
+       textAlign:'center'
+   },
 });
 
 class CountDown extends Component {
@@ -112,31 +117,62 @@ class CountDown extends Component {
     }
     render() {
         return (
-            <View style={[spacing.column, spacing.center]}>
-                
-                <View >
-                    <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={0} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.days/365)*100} >
+            <View style={[spacing.column, spacing.center, {justifyContent:"center",alignItems:"center"}]}>
+                <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}} >
+                    <AnimatedCircularProgress 
+                        size={diameter} 
+                        width={progressWidth} 
+                        rotation={0} 
+                        tintColor={progressColor} 
+                        backgroundColor = {backColor} 
+                        backgroundWidth={backWidth} 
+                        fill={(this.state.days/365)*100} 
+                    >
                         {fill=><Text style={styles.innerText}>{this.state.days}</Text>}
                     </AnimatedCircularProgress>
-                    <Text>Days</Text>
+                    <Text style={styles.outerText}>Days</Text>
                 </View>
-                <View >
-                    <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={0} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.hours/24)*100}>
+                <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}}>
+                    <AnimatedCircularProgress 
+                        size={diameter} 
+                        width={progressWidth} 
+                        rotation={0} 
+                        tintColor={progressColor} 
+                        backgroundColor = {backColor} 
+                        backgroundWidth={backWidth} 
+                        fill={(this.state.hours/24)*100}
+                    >
                     {fill=><Text style={styles.innerText}>{this.state.hours}</Text>}
                     </AnimatedCircularProgress>
-                    <Text>Hours</Text>
+                    <Text style={styles.outerText}>Hours</Text>
                 </View>
-                <View >
-                    <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={0} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.minutes/60)*100}>
+                <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}}>
+                    <AnimatedCircularProgress 
+                    size={diameter}
+                        width={progressWidth} 
+                        rotation={0} 
+                        tintColor={progressColor} 
+                        backgroundColor = {backColor} 
+                        backgroundWidth={backWidth} 
+                        fill={(this.state.minutes/60)*100}
+                    >
                         {fill=><Text style={styles.innerText}>{this.state.minutes}</Text>}
                     </AnimatedCircularProgress>
-                    <Text>Minutes</Text>
+                    <Text style={styles.outerText}>Minutes</Text>
                 </View>
-                <View >
-                    <AnimatedCircularProgress size={diameter} width={progressWidth} rotation={360} tintColor={progressColor} backgroundColor = {backColor} backgroundWidth={backWidth} fill={(this.state.seconds/60)*100}>
+                <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}}>
+                    <AnimatedCircularProgress 
+                        size={diameter} 
+                        width={progressWidth} 
+                        rotation={360} 
+                        tintColor={progressColor} 
+                        backgroundColor = {backColor} 
+                        backgroundWidth={backWidth} 
+                        fill={(this.state.seconds/60)*100}
+                    >
                         {fill=><Text style={styles.innerText}>{this.state.seconds}</Text>}
                     </AnimatedCircularProgress>
-                    <Text>Seconds</Text>
+                    <Text style={styles.outerText}>Seconds</Text>
                 </View>
             </View>
         )
