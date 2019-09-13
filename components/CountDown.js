@@ -95,7 +95,7 @@ class CountDown extends Component {
         this.getDeadline();
         setInterval(()=>{
             now = new Date().getTime();
-            t = this.props.deadline -now;
+            t = this.props.deadline - now;
             this.setState({
                 days: this.getDays(),
             });
@@ -123,56 +123,56 @@ class CountDown extends Component {
                         size={diameter} 
                         width={progressWidth} 
                         rotation={0} 
-                        tintColor={progressColor} 
-                        backgroundColor = {backColor} 
+                        tintColor={this.props.progressColor} 
+                        backgroundColor = {this.props.backColor} 
                         backgroundWidth={backWidth} 
                         fill={(this.state.days/365)*100} 
                     >
-                        {fill=><Text style={styles.innerText}>{this.state.days}</Text>}
+                        {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>{this.state.days}</Text>}
                     </AnimatedCircularProgress>
-                    <Text style={styles.outerText}>Days</Text>
+                    <Text style={[styles.outerText, {color: this.props.textColor}]}>Days</Text>
                 </View>
                 <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}}>
                     <AnimatedCircularProgress 
                         size={diameter} 
                         width={progressWidth} 
                         rotation={0} 
-                        tintColor={progressColor} 
-                        backgroundColor = {backColor} 
+                        tintColor={this.props.progressColor} 
+                        backgroundColor = {this.props.backColor} 
                         backgroundWidth={backWidth} 
                         fill={(this.state.hours/24)*100}
                     >
-                    {fill=><Text style={styles.innerText}>{this.state.hours}</Text>}
+                    {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>{this.state.hours}</Text>}
                     </AnimatedCircularProgress>
-                    <Text style={styles.outerText}>Hours</Text>
+                    <Text style={[styles.outerText, {color: this.props.textColor}]}>Hours</Text>
                 </View>
                 <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}}>
                     <AnimatedCircularProgress 
                     size={diameter}
                         width={progressWidth} 
                         rotation={0} 
-                        tintColor={progressColor} 
-                        backgroundColor = {backColor} 
+                        tintColor={this.props.progressColor} 
+                        backgroundColor = {this.props.backColor} 
                         backgroundWidth={backWidth} 
                         fill={(this.state.minutes/60)*100}
                     >
-                        {fill=><Text style={styles.innerText}>{this.state.minutes}</Text>}
+                        {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>{this.state.minutes}</Text>}
                     </AnimatedCircularProgress>
-                    <Text style={styles.outerText}>Minutes</Text>
+                    <Text style={[styles.outerText, {color: this.props.textColor}]}>Minutes</Text>
                 </View>
                 <View style={{alignItems:"center", justifyContent:"center", flex:1, paddingVert:20}}>
                     <AnimatedCircularProgress 
                         size={diameter} 
                         width={progressWidth} 
                         rotation={360} 
-                        tintColor={progressColor} 
-                        backgroundColor = {backColor} 
+                        tintColor={this.props.progressColor} 
+                        backgroundColor = {this.props.backColor} 
                         backgroundWidth={backWidth} 
                         fill={(this.state.seconds/60)*100}
                     >
-                        {fill=><Text style={styles.innerText}>{this.state.seconds}</Text>}
+                        {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>{this.state.seconds}</Text>}
                     </AnimatedCircularProgress>
-                    <Text style={styles.outerText}>Seconds</Text>
+                    <Text style={[styles.outerText, {color: this.props.textColor}]}>Seconds</Text>
                 </View>
             </View>
         )
