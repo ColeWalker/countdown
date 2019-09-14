@@ -22,11 +22,12 @@ const styles= StyleSheet.create({
     width:50,
     height: 50,
 	borderRadius: 50,
-	borderWidth: 1,
+	borderWidth: 2,
 	borderColor: "#EBE6E6"
   },
 
 });
+
 
 class SettingsScreen extends Component{
 
@@ -66,15 +67,18 @@ class SettingsScreen extends Component{
     
     return(
        <KeyboardAwareScrollView style={[spacing.mainContainer]} contentContainerStyle={{flex:1}} enableOnAndroid={true}>
-          <LinearGradient
-            colors={["#ff416c", "#ff4b2b"]}
-            style={[{height:200, justifyContent:"center", alignItems:"center",}, spacing.center, spacing.column]}
-          >
-                    <AnimatedCircularProgress size={125} width={5} rotation={0} tintColor={this.props.progressColor} backgroundColor = {this.props.backColor} backgroundWidth={1} fill={75} >
+		   
+					<LinearGradient 
+					colors={this.props.background.length > 1 ? this.props.background : [this.props.background[0], this.props.background[0]]} 
+					style={[{height:200, justifyContent:"center", alignItems:"center",}, spacing.center, spacing.column]} >
+						
+					
+					<AnimatedCircularProgress size={125} width={5} rotation={0} tintColor={this.props.progressColor} backgroundColor = {this.props.backColor} backgroundWidth={1} fill={75} >
                         {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>Placeholder</Text>}
                     </AnimatedCircularProgress>
                     <Text style={[{color: this.props.textColor}]}>Placeholder</Text>
-          </LinearGradient>
+				</LinearGradient>
+
           <ScrollView style={{flex:1,}}>
           	<View style={[textRow]}> 
           	  <Text style={[typography.settingsLabel]}>
