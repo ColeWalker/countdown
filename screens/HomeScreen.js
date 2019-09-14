@@ -26,16 +26,13 @@ class HomeScreen extends React.Component {
   render(){
     return (
 
-    <ConditionalWrap
-      condition={this.props.background.length>1}
-      wrap={children => {
-        return(
+    
         <LinearGradient 
-        colors={this.props.background} 
+        colors={this.props.background.length > 1 ? this.props.background : [this.props.background[0], this.props.background[0]]} 
         style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]} >
-        {children}
-        </LinearGradient>)}}
-    >
+       
+  
+
       
       {!this.props.countDownName&& ( <Text style={[typography.heading, typography.center, {color: this.props.textColor}]}>{this.props.countdownName}</Text>)}
       <ScrollView
@@ -52,7 +49,7 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('Settings')}
           style={appStyle.colorPickerButton}
           />
-    </ConditionalWrap>
+    </LinearGradient>
   );}
 
 }
