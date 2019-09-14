@@ -19,9 +19,17 @@ import { spacing } from '../styles/spacing.js'
 import { connect } from 'react-redux';
 import { typography } from '../styles/typography'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Ionicons } from '@expo/vector-icons'
+
 
 const ConditionalWrap = ({condition, wrap, children}) => condition ? wrap(children) : <View style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]}>{children}</View>;
-
+const styles= StyleSheet.create({
+  settingsButton:{
+    position: "absolute",
+    top: 30,
+    right: 20,
+  }
+});
 class HomeScreen extends React.Component {
   render(){
     return (
@@ -37,18 +45,18 @@ class HomeScreen extends React.Component {
       {!this.props.countDownName&& ( <Text style={[typography.heading, typography.center, {color: this.props.textColor}]}>{this.props.countdownName}</Text>)}
       <ScrollView
         
-        contentContainerStyle={{alignItems:'center'}}
+        contentContainerStyle={{alignItems:'center', flex: 1}}
         >
         <CountDown /> 
         
       </ScrollView>
         
-          
-      <Button
-          title="Go to Settings"
-          onPress={() => this.props.navigation.navigate('Settings')}
-          style={appStyle.colorPickerButton}
-          />
+      <TouchableOpacity
+         onPress={() => this.props.navigation.navigate('Settings')}
+         style={styles.settingsButton}
+      >
+        <Ionicons name="md-settings" size={50} color={this.props.textColor}/>
+      </TouchableOpacity>
     </LinearGradient>
   );}
 
