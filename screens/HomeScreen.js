@@ -35,6 +35,7 @@ const styles= StyleSheet.create({
     flexDirection:"row",
     justifyContent:"center",
     alignItems:"center",
+    zIndex:2,
   }
   
 });
@@ -43,7 +44,7 @@ class HomeScreen extends React.Component {
     return (
       <LinearGradient 
         colors={this.props.background.length > 1 ? this.props.background : [this.props.background[0], this.props.background[0]]} 
-        style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad]} 
+        style={[spacing.mainContainer, spacing.column, spacing.center, spacing.mainTopPad, {zIndex:-100}]} 
       >  
         {this.props.countdownName && 
           ( <View 
@@ -59,13 +60,18 @@ class HomeScreen extends React.Component {
 
             </View>)
         }
-        <ScrollView
+        <ScrollView style={{zIndex:2}}
           contentContainerStyle={{alignItems:'center', flex: 1}}
           >
           <CountDown /> 
           
         </ScrollView>
-        
+        {this.props.backgroundImageURI && (
+          <Image 
+            source={{uri: this.props.backgroundImageURI}}
+             style={[StyleSheet.absoluteFill, {zIndex:1}]}
+          />
+        )}
     </LinearGradient>
   );}
 
@@ -78,6 +84,7 @@ const mapStateToProps= state=>({
   countdownName: state.countdownName,
   background: state.background,
   textColor: state.textColor,
+  backgroundImageURI: state.backgroundImageURI,
 });
 
 export default connect(mapStateToProps)(HomeScreen);
