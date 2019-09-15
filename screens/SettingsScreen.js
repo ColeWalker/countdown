@@ -15,7 +15,7 @@ var moment = require('moment');
 
 
 
-const textRow= StyleSheet.flatten([spacing.spaceBetween,spacing.row, {alignItems:"center", paddingBottom:20, flex:1}]);
+const textRow= StyleSheet.flatten([spacing.spaceBetween,spacing.row, {alignItems:"center", paddingVertical:20, flex:1}]);
 
 const styles= StyleSheet.create({
   colorArea:{
@@ -25,6 +25,10 @@ const styles= StyleSheet.create({
 	borderWidth: 2,
 	borderColor: "#EBE6E6"
   },
+  resetText:{
+	color: "#B33A3A",
+	fontSize: 22
+  }
 
 });
 
@@ -39,19 +43,11 @@ class SettingsScreen extends Component{
   }
 
   resetToDefaultsWarning(){
-    Alert.alert(
-      'Reset to Defaults',
-      'Are you sure you want to reset to defaults?'
-      [
-        {text: "Cancel", style: 'cancel'},
-        {text: "Confirm", onPress: ()=>{this.resetToDefaults()}}
-      ],
-      {cancelable: true}
-    )
+    
   }
 
   resetToDefaults(){
-    
+    console.log('hello');
   }
 
   state={
@@ -80,6 +76,19 @@ class SettingsScreen extends Component{
 				</LinearGradient>
 
           <ScrollView style={{flex:1,}}>
+		  	<View
+                   style={[{flex:1, paddingBottom: 20, backgroundColor:'#fff'}, textRow]}>
+          	 
+          	   <Text style={[typography.settingsLabel]}>
+          	     Countdown Name:
+          	   </Text>
+          	   <TextInput 
+          	    value = {this.state.name}
+				  onChangeText= {(text)=> this.setState({name:text})}
+				  onEndEditing={(text)=>{this.saveItems(this.state.name)}}
+          	   />
+          	 
+                   </View>
           	<View style={[textRow]}> 
           	  <Text style={[typography.settingsLabel]}>
           	   Date: 
@@ -87,9 +96,9 @@ class SettingsScreen extends Component{
           	  <DatePicker
           	  style={{width: 200, padding:10}}
           	  mode="datetime"
-          	  date={moment(this.props.deadline).format("MMM DD, YYYY hh:mm:ss")}
+          	  date={moment(this.props.deadline).format("MMM DD, YYYY hh:mm:ss a")}
           	  placeholder="select date"
-          	  format="MMM DD, YYYY hh:mm:ss"
+          	  format="MMM DD, YYYY hh:mm:ss a"
           	  minDate={new Date()}
           	  confirmBtnText="Confirm"
           	  cancelBtnText="Cancel"
@@ -143,39 +152,25 @@ class SettingsScreen extends Component{
           	   </View>
           	 </TouchableOpacity>
                    </View>
-                   <View
-                   style={[{flex:1, paddingBottom: 20, backgroundColor:'#fff'}, textRow]}>
-          	 
-          	   <Text style={[typography.settingsLabel]}>
-          	     Countdown Name:
-          	   </Text>
-          	   <TextInput 
-          	    value = {this.state.name}
-          	    onChangeText= {(text)=> this.setState({name:text})}
-          	   />
-          	 
-                   </View>
+                   
                    <View style={{flex:1}}>
-          	 <TouchableOpacity 
-          	  onPress={()=>{this.resetToDefaultsWarning()}}
-          	 >
-          	   <Text >
-          	     Reset to Defaults
-          	   </Text>
-          	 </TouchableOpacity>
+          	 
+				   <TouchableOpacity 
+				             	  onPress={()=>{Alert.alert(
+				   				'Reset to Defaults',
+				   				'Are you sure you want to reset to defaults?',
+				   				[
+				   				  {text: "Cancel", style:'cancel'},
+				   				  {text: "Confirm", onPress: ()=>{}}
+				   				],
+				   			  );}}
+				             	 >
+				             	   <Text style={[styles.resetText,]}>
+				             	     Reset to Defaults
+				             	   </Text>
+				             	 </TouchableOpacity>
+			   
                    </View>
-                   <View style={[{flex:2, display: "flex", flexDirection: "column", justifyContent:"space-around"}, ]}>
-                   <Button
-          	style={{flex:1}}
-          	  title="Save"
-          	  onPress={()=> {this.saveItems(this.state.name)}}
-          	/>
-          	<Button
-          	style={{flex:1}}
-          	  title="Go Back"
-          	  onPress={()=> this.props.navigation.navigate('Home')}
-          	/>
-                  </View>
           </ScrollView>
       </KeyboardAwareScrollView>
 
