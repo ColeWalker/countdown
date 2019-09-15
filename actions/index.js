@@ -1,4 +1,4 @@
-import { CHANGE_DEADLINE, CHANGE_PROGRESS_COLOR, CHANGE_BACKGROUND_RING_COLOR, CHANGE_BACKGROUND, CHANGE_COUNTDOWN_NAME, CHANGE_TEXT_COLOR } from './types';
+import { CHANGE_DEADLINE, CHANGE_PROGRESS_COLOR, CHANGE_BACKGROUND_RING_COLOR, CHANGE_BACKGROUND, CHANGE_COUNTDOWN_NAME, CHANGE_TEXT_COLOR, CHANGE_BACKGROUND_IMAGE_URI } from './types';
 
 export const changeDeadline = (deadline) =>{
     return {
@@ -40,3 +40,10 @@ export const changeTextColor = (color) =>{
         textColor: color
     }
 };
+
+export const changeBackgroundImageURI = (uri)=>{
+    return{
+        type: CHANGE_BACKGROUND_IMAGE_URI,
+        backgroundImageURI: uri
+    }
+}
