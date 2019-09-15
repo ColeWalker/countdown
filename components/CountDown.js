@@ -6,18 +6,20 @@ import { connect} from 'react-redux'
 import { changeDeadline } from '../actions/index.js'
 import { typography } from '../styles/typography.js';
 import { spacing } from '../styles/spacing'
+var moment = require('moment');
 
 var backWidth=1;
 var progressWidth=5;
 var progressColor='#FC9F5B';
 var backColor='#010400';
-var diameter = 95;
+var diameter = 100;
 /*----------------------------------
         COUNTDOWN MATH
 ------------------------------------*/
 var deadline = new Date("jul 1, 2019 15:37:25").getTime();
 var now = new Date().getTime();
 var t = deadline-now;
+var test;
 /*----------------------------------
         COUNTDOWN MATH END
 ------------------------------------*/
@@ -49,14 +51,18 @@ class CountDown extends Component {
     }
 
     getDays(){
-        var d= Math.floor(t / (1000 * 60 * 60 * 24));
-        if(d>=0){
+        //var d= Math.floor(t / (1000 * 60 * 60 * 24));
+        let d= moment.duration({from: moment() ,to:this.props.deadline});
+        d = parseInt(d.asDays());
+        
             return d;
-        }
-        return 1;
+        
+        
     }
     getHours(){
         var h = Math.floor((t%(1000*60*60*24))/(1000*60*60))
+        h = moment.duration({from: moment(), to:this.props.deadline});
+        h = parseInt(h.hours());
         if(h>=0){
             return h;
         }
@@ -64,6 +70,8 @@ class CountDown extends Component {
     };
     getMinutes(){
         var m= Math.floor((t % (1000*60*60)) / (1000*60));
+        m = moment.duration({from: moment(), to:this.props.deadline});
+        m = parseInt(m.minutes());
         if (m>=0){
             return m;
         }
@@ -71,6 +79,8 @@ class CountDown extends Component {
     }
     getSeconds(){
         var s= Math.floor((t % (1000 * 60)) / 1000);
+        s = moment.duration({from: moment(), to:this.props.deadline});
+        s = parseInt(s.seconds());
         if (s>=0){
             return s;
         }
@@ -95,6 +105,7 @@ class CountDown extends Component {
         this.getDeadline();
         setInterval(()=>{
             now = new Date().getTime();
+            
             t = this.props.deadline - now;
             this.setState({
                 days: this.getDays(),
@@ -128,7 +139,7 @@ class CountDown extends Component {
                         backgroundWidth={backWidth} 
                         fill={(this.state.days/365)*100} 
                     >
-                        {fill=><Text style={[styles.innerText, {color: this.props.textColor}]}>{this.state.days}</Text>}
+                        {fill=><Text style={[styles.innerText, {color: this.props.textColor}]} numberOfLines={1} ellipsizeMode={"clip"}>{this.state.days}</Text>}
                     </AnimatedCircularProgress>
                     <Text style={[styles.outerText, {color: this.props.textColor}]}>Days</Text>
                 </View>
