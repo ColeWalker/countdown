@@ -1,4 +1,4 @@
-import { CHANGE_DEADLINE, CHANGE_PROGRESS_COLOR, CHANGE_BACKGROUND_RING_COLOR, CHANGE_BACKGROUND, CHANGE_TEXT_COLOR, CHANGE_COUNTDOWN_NAME, CHANGE_BACKGROUND_IMAGE_URI } from '../actions/types';
+import { RESET_TO_DEFAULTS, CHANGE_DEADLINE, CHANGE_PROGRESS_COLOR, CHANGE_BACKGROUND_RING_COLOR, CHANGE_BACKGROUND, CHANGE_TEXT_COLOR, CHANGE_COUNTDOWN_NAME, CHANGE_BACKGROUND_IMAGE_URI } from '../actions/types';
 
 // const defaultState= {
 //     deadline: new Date('jan 3, 2099 15:37:55').getTime(),
@@ -43,6 +43,16 @@ export default rootReducer = (state=defaultState, action)=>{
             return{
                 ...state,
                 backgroundImageURI: action.backgroundImageURI
+            }
+        case RESET_TO_DEFAULTS:
+            return{
+                ...state,
+                progressColor: action.progressColor,
+                backColor: action.backColor,
+                background: action.background,
+                countdownName: action.countdownName,
+                textColor: action.textColor,
+                backgroundImageURI: action.backgroundImageURI,
             }
         default:
             return{

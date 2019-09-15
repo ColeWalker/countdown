@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Alert, StyleSheet, ScrollView, Text, TextInput, View, AsyncStorage, Button, KeyboardAvoidingView } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import { connect} from 'react-redux';
-import { changeDeadline, changeProgressColor, changeBackgroundRingColor, changeBackground, changeCountdownName, changeTextColor } from '../actions/index.js';
+import { resetToDefaults, changeDeadline, changeProgressColor, changeBackgroundRingColor, changeBackground, changeCountdownName, changeTextColor } from '../actions/index.js';
 import { TouchableOpacity } from 'react-native';
 import { appStyle } from '../styles/index'
 import { spacing } from '../styles/spacing.js'
@@ -42,12 +42,9 @@ class SettingsScreen extends Component{
     this.props.changeCountdownName(name);
   }
 
-  resetToDefaultsWarning(){
-    
-  }
 
   resetToDefaults(){
-    console.log('hello');
+    this.props.resetToDefaults();
   }
 
   state={
@@ -161,7 +158,7 @@ class SettingsScreen extends Component{
 				   				'Are you sure you want to reset to defaults?',
 				   				[
 				   				  {text: "Cancel", style:'cancel'},
-				   				  {text: "Confirm", onPress: ()=>{}}
+				   				  {text: "Confirm", onPress: ()=>{this.resetToDefaults()}}
 				   				],
 				   			  );}}
 				             	 >
@@ -193,4 +190,4 @@ const mapStateToProps = state => (
 });
 
 
-export default connect(mapStateToProps, { changeDeadline, changeBackgroundRingColor, changeBackground, changeProgressColor,changeTextColor, changeCountdownName })(SettingsScreen);
+export default connect(mapStateToProps, { resetToDefaults, changeDeadline, changeBackgroundRingColor, changeBackground, changeProgressColor,changeTextColor, changeCountdownName })(SettingsScreen);
