@@ -267,14 +267,6 @@ class ColorPickerScreen extends Component {
                         keyboardType={"default"}
                     />
                 </KeyboardAvoidingView>
-                {this.state.isBackground && (<Button
-                    title="Select Background Image"
-                    onPress={()=>{
-                        this.changeImage();
-                    }}
-                />)}
-                {this.state.imageSelected &&
-                (<Image source={{uri: this.state.imageURI}} style={{width:100, height:100}}/>)}
                
                 </ScrollView>
             </View>

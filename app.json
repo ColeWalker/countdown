@@ -25,6 +25,19 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android":{
+        "package": "com.walkermakes.countdown",
+        "permissions": [
+          "CAMERA",
+          "READ_EXTERNAL_STORAGE",
+          "WRITE_EXTERNAL_STORAGE"
+        ],
+        "adaptiveIcon": {
+          "foregroundImage":"./assets/images/icon-foreground.png",
+          "backgroundImage":"./assets/images/icon-background.png"
+        }
+    },
+    "description": "An app which will count down to a specified date."
   }
 }
